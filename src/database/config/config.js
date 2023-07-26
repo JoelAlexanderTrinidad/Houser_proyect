@@ -1,10 +1,9 @@
-module.exports ={
+module.exports = {
   "development": {
-    "host": "db4free.net",
-    "port": "3306",
-    "username": "houser",
-    "password": "houser123",
+    "username": "root",
+    "password": "root",
     "database": "houser",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
@@ -12,14 +11,13 @@ module.exports ={
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql" 
   },
   "production": {
-    "host": "db4free.net",
-    "port": "3306",
-    "username": "houser",
-    "password": "houser123",
-    "database": "houser",
-    "dialect": "mysql"
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql" 
   }
 }

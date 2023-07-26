@@ -1,30 +1,26 @@
-const connection = require('../helpers/connection');
+// const connection = require('../helpers/connection');
 const modelos = require('../database/models')
 
 module.exports = {
-    crearUsuario: (req, res) => {
+    crearUsuario: async (req, res) => {
+      try {
+        const {name, password, email} = req.body;
 
-        const {nombre, passWord, email} = req.body;
+        const nuevoUsuario = await modelos.Usuarios.create({
+          name,
+          password,
+          email
+        })
 
-        const nuevoUsuario = {
-            nombre,
-            passWord,
-            email
-        };
-    }
-    
-}
+        if(nuevoUsuario){
+          return res.status(200).json({
+            status: 200,
+            mensaje: "Usuario creado con éxito",
+          })
+        }
 
-function guardarUsuario(usuario) {
-  
-    const query = 'INSERT INTO Usuarios (name) VALUES (?)';
-    const values = [ usuario.name ];
-  
-    connection.query(query, values, (err, result) => {
-      if (err) {
-        console.error('Error al insertar datos:', err);
-      } else {
-        console.log('Datos insertados exitosamente en la tabla usuarios:', result);
+      } catch (error) {
+        console.log(error)
       }
-    });
+    }
 }
