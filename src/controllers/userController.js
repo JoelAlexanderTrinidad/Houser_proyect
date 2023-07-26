@@ -1,9 +1,18 @@
-const connection = require('../helper/connection');
+const connection = require('../helpers/connection');
+const modelos = require('../database/models')
 
 module.exports = {
-    save: (usuario) => {
-        guardarUsuario(usuario);
+    crearUsuario: (req, res) => {
+
+        const {nombre, passWord, email} = req.body;
+
+        const nuevoUsuario = {
+            nombre,
+            passWord,
+            email
+        };
     }
+    
 }
 
 function guardarUsuario(usuario) {
