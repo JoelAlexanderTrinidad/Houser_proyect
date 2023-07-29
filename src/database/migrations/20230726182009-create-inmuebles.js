@@ -21,6 +21,12 @@ module.exports = {
       superficie: {
         type: Sequelize.INTEGER
       },
+      precio: {
+        type: Sequelize.INTEGER
+      },
+      propietario: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
