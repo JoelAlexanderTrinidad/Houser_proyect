@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/inmueblesController');
+const inmueblesController = require('../controllers/inmueblesController');
 
 
 /* inmuebles */
-router.post('/', userController.crearInmueble);
+router.post('/', inmueblesController.crearInmueble);
 
 module.exports = router;
