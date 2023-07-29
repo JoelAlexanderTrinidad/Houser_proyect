@@ -4,6 +4,8 @@ const inmueblesController = require('../controllers/inmueblesController');
 
 
 /* inmuebles */
-router.post('/', inmueblesController.crearInmueble);
+router
+    .post('/', inmueblesController.crearInmueble)
+    .put('/:id', inmueblesController.modificarInmueble)
 
 module.exports = router;
