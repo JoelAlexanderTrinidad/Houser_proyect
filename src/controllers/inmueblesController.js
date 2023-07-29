@@ -33,7 +33,7 @@ module.exports = {
 
         if(isNaN(idInmueble)){
             return res.status(400).json({
-                mensaje: "Id de producto inválido"
+                mensaje: "Id de inmueble inválido"
             })
         }
 
@@ -42,28 +42,68 @@ module.exports = {
 
             const inmueble = await modelos.Inmuebles.findByPk(idInmueble);
 
-            const inmuebleActualizado = await modelos.Inmuebles.update({
-                tipo,
-                ubicacion,
-                ambientes: +ambientes,
-                superficie: +superficie,
-                precio: +precio,
-                propietario
-            },
-            {
-                where :{
-                    id : inmueble.id
-                }
-            });
-
-            return res.status(200).json({
-                status: "OK",
-                mensaje: "Inmueble actualizado con éxito"
-            })
+            if (!inmueble) {
+                return res.status(404).json({
+                  mensaje: "Inmueble no encontrado",
+                });
+            }else{
+                await modelos.Inmuebles.update({
+                    tipo,
+                    ubicacion,
+                    ambientes: +ambientes,
+                    superficie: +superficie,
+                    precio: +precio,
+                    propietario
+                },
+                {
+                    where :{
+                        id : inmueble.id
+                    }
+                });
+    
+                return res.status(200).json({
+                    status: "OK",
+                    mensaje: "Inmueble actualizado con éxito"
+                })
+            }
 
         } catch (error) {
             console.log(error);
         }
 
+    },
+    eliminarInmueble: async (req, res) => {
+
+        const idInmueble = req.params.id;
+
+        if(isNaN(idInmueble)){
+            return res.status(400).json({
+                mensaje: "Id de inmueble inválido"
+            })
+        }
+
+        try {
+
+            const inmueble = await modelos.Inmuebles.findByPk(idInmueble);
+
+            if (!inmueble) {
+                return res.status(404).json({
+                  mensaje: "Inmueble no encontrado",
+                });
+            }else{
+                await modelos.Inmuebles.destroy({
+                    where: {
+                        id: idInmueble
+                    }
+                })
+
+                return res.status(200).json({
+                    mensaje: "Inmueble eliminado con éxito"
+                })
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

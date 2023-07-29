@@ -7,5 +7,6 @@ const inmueblesController = require('../controllers/inmueblesController');
 router
     .post('/', inmueblesController.crearInmueble)
     .put('/:id', inmueblesController.modificarInmueble)
+    .delete('/:id', inmueblesController.eliminarInmueble)
 
 module.exports = router;
