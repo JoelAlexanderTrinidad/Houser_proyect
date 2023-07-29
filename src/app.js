@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
-const userController = require('./controllers/userController');
 const port = 3000;
+const userRoutes = require('./routes/userRoutes');
+
+app.use('/users', userRoutes);
 
 app.use(express.json());
 
-app.post('/users', userController.crearUsuario);
+
 
 
 app.listen(port, () => {
