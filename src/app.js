@@ -3,6 +3,9 @@ const app = express();
 const port = 3000;
 const userRoutes = require('./routes/userRoutes');
 const inmueblesRoutes = require('./routes/inmueblesRoutes');
+const session = require('express-session');
+const { passport } = require('./controllers/authController');
+const authRoutes = require('./routes/authRoutes');
 
 app.use(express.json());
 
@@ -15,6 +18,9 @@ app.use(session({
 app.use('/users', userRoutes);
 app.use('/inmuebles', inmueblesRoutes);
 app.use('/auth', authRoutes);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/profile', (req, res) => {
   if (req.isAuthenticated()) {
