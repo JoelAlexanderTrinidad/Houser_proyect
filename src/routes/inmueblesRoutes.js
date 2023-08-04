@@ -8,5 +8,6 @@ router
     .post('/', inmueblesController.crearInmueble)
     .put('/:id', inmueblesController.modificarInmueble)
     .delete('/:id', inmueblesController.eliminarInmueble)
+    .get('/buscar', inmueblesController.buscarInmueble)
 
 module.exports = router;

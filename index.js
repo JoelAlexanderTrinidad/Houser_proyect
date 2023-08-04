@@ -52,34 +52,3 @@ async function main(){
 }
 
 main()
-
-async function searchExample() {
-  // const client = new Client({ node: 'http://localhost:9200', ssl: { rejectUnauthorized: false } })
-  
-  const searchParams = {
-    index: 'nombre_del_indice', 
-    body: {
-      query: {
-        match: { 
-          campo: 'valor' 
-        }
-      }
-    }
-  };
-
-  try {
-    
-    const { body } = await client.search(searchParams);
-
-   
-    const hits = body.hits.hits;
-    console.log(`Se encontraron ${hits.length} resultados:`);
-    hits.forEach((hit, index) => {
-      console.log(`Resultado ${index + 1}:`, hit._source);
-    });
-  } catch (error) {
-    console.error('Error al realizar la búsqueda:', error);
-  }
-}
-
-// searchExample();

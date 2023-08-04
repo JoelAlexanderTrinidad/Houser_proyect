@@ -1,4 +1,8 @@
+const { Client } = require('@elastic/elasticsearch');
+const url =  'http://localhost:9200';
+const client = new Client({ node: url, ssl: { rejectUnauthorized: false } });
 const modelos = require('../database/models');
+const indexInmueble = require('../database/serviciosElastic/crearIndex')
 
 module.exports = {
     crearInmueble: async (req, res) => {
@@ -14,9 +18,21 @@ module.exports = {
                 precio: +precio,
                 propietario
             })
-    
+
             if(nuevoInmueble){
-                return res.status(201).json({
+                const inmuebleElastic = {
+                    tipo,
+                    ubicacion,
+                    ambientes: +ambientes,
+                    superficie: +superficie,
+                    precio: +precio,
+                    propietario
+                  };
+                  
+                  const indexResponse = await indexInmueble(inmuebleElastic);
+                  console.log("Inmueble indexado en Elasticsearch:", indexResponse);
+
+                return res.status(201).json({   
                     status: 201,
                     mensaje: "Inmueble creado con éxito"
                 })
@@ -105,5 +121,26 @@ module.exports = {
         } catch (error) {
             console.log(error);
         }
+    },
+    buscarInmueble: async (req, res) => {
+        const {keyword} = req.query;
+
+        await client.indices.refresh({ index: 'inmuebles' })
+
+        const { body } = await client.search({
+            index: 'inmuebles',
+            body: {
+              query: {
+                match: { propietario: keyword }
+              }
+            }
+          })
+
+        console.log(body.hits.hits)
+          
+        return res.status(200).json({
+            resultados: body.hits.hits.length,
+            data: body.hits.hits
+        })
     }
 }
