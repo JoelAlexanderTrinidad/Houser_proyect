@@ -1,3 +1,0 @@
-abrir cmd en la ruta bin de elasticsearch y ejecutar el comando 
-elasticsearch -E xpack.security.enabled=false
-para que desactive el sertificado ssl
