@@ -124,6 +124,7 @@ module.exports = {
     },
     buscarInmueble: async (req, res) => {
         const {keyword} = req.query;
+        const expanded =  keyword + "~2"
 
         await client.indices.refresh({ index: 'inmuebles' })
 
@@ -131,12 +132,15 @@ module.exports = {
             index: 'inmuebles',
             body: {
               query: {
-                match: { propietario: keyword }
+                query_string:{
+                    default_field: "propietario",
+                    query: expanded
+                }
               }
             }
           })
 
-        console.log(body.hits.hits)
+        // console.log(body.hits.hits)
           
         return res.status(200).json({
             resultados: body.hits.hits.length,
