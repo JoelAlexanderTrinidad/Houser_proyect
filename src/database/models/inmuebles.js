@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     superficie: DataTypes.INTEGER,
     precio: DataTypes.INTEGER,
     propietario: DataTypes.STRING,
+    disponible: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Inmuebles',

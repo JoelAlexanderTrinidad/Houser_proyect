@@ -27,6 +27,9 @@ module.exports = {
       propietario: {
         type: Sequelize.STRING
       },
+      disponible: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
