@@ -3,6 +3,8 @@ const url =  'http://localhost:9200';
 const client = new Client({ node: url, ssl: { rejectUnauthorized: false } });
 const modelos = require('../database/models');
 const indexInmueble = require('../database/serviciosElastic/crearIndex')
+const eliminarInmuebleElastic = require('../database/serviciosElastic/eliminar')
+const actualizarInmuebleElastic= require('../database/serviciosElastic/actualizar')
 
 module.exports = {
     crearInmueble: async (req, res) => {
@@ -20,14 +22,18 @@ module.exports = {
                 disponible: true
             })
 
+            const idImueble = nuevoInmueble.id 
+            
             if(nuevoInmueble){
                 const inmuebleElastic = {
+                    id:idImueble,
                     tipo,
                     ubicacion,
                     ambientes: +ambientes,
                     superficie: +superficie,
                     precio: +precio,
-                    propietario
+                    propietario,
+                    disponible:true
                   };
                   
                   const indexResponse = await indexInmueble(inmuebleElastic);
@@ -78,7 +84,11 @@ module.exports = {
                         id : inmueble.id
                     }
                 });
-    
+                
+
+                await actualizarInmuebleElastic(idInmueble, req.body);
+
+
                 return res.status(200).json({
                     status: "OK",
                     mensaje: "Inmueble actualizado con éxito"
@@ -101,28 +111,33 @@ module.exports = {
         }
 
         try {
-
-            const inmueble = await modelos.Inmuebles.findByPk(idInmueble);
-
+           const inmueble = await modelos.Inmuebles.findByPk(idInmueble);
+    
             if (!inmueble) {
                 return res.status(404).json({
-                  mensaje: "Inmueble no encontrado",
+                    mensaje: "Inmueble no encontrado"
                 });
-            }else{
-                await modelos.Inmuebles.destroy({
-                    where: {
-                        id: idInmueble
-                    }
-                })
-
-                return res.status(200).json({
-                    mensaje: "Inmueble eliminado con éxito"
-                })
             }
+    
+            await modelos.Inmuebles.destroy({
+                where: {
+                    id: idInmueble
+                }
+            });
             
+            await eliminarInmuebleElastic(idInmueble);
+    
+            return res.status(200).json({
+                mensaje: "Inmueble eliminado con éxito"
+            });
+
         } catch (error) {
             console.log(error);
         }
+
+        
+      
+
     },
     buscarInmueble: async (req, res) => {
         const {keyword} = req.query;
