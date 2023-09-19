@@ -4,15 +4,15 @@ const url =  'http://localhost:9200';
 
     const client = new Client({ node: url, ssl: { rejectUnauthorized: false } });
 
-    async function assert_index() {
-        return client.indices.exists({
-        index: index_name
-        });
-    }
+    // async function assert_index() {
+    //     return client.indices.exists({
+    //     index: index_name
+    //     });
+    // }
     
-    async function create_index() {
-        return client.indices.create({ index: index_name });
-    }
+    // async function create_index() {
+    //     return client.indices.create({ index: index_name });
+    // }
     
     async function indexInmueble(inmueble) {
         await client.index({

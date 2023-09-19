@@ -4,13 +4,17 @@ const client = new Client({ node: url, ssl: { rejectUnauthorized: false } });
 const modelos = require('../database/models');
 const indexInmueble = require('../database/serviciosElastic/crearIndex')
 const eliminarInmuebleElastic = require('../database/serviciosElastic/eliminar')
-const actualizarInmuebleElastic= require('../database/serviciosElastic/actualizar')
+const actualizarInmuebleElastic= require('../database/serviciosElastic/actualizar');
+const getLocation = require('../database/serviciosStreetMap/getLocation');
 
 module.exports = {
     crearInmueble: async (req, res) => {
 
         try {
             const {tipo, ubicacion,ambientes,superficie,precio,propietario} = req.body;
+
+            const location = await getLocation(ubicacion)
+            const locationArr =  location.split(', ');
 
             const nuevoInmueble = await modelos.Inmuebles.create({
                 tipo,
@@ -33,6 +37,8 @@ module.exports = {
                     superficie: +superficie,
                     precio: +precio,
                     propietario,
+                    ciudad: locationArr[3],
+                    barrio: locationArr[2],
                     disponible:true
                   };
                   
@@ -41,7 +47,8 @@ module.exports = {
 
                 return res.status(201).json({   
                     status: 201,
-                    mensaje: "Inmueble creado con éxito"
+                    mensaje: "Inmueble creado con éxito",
+                    body: req.body
                 })
             }
     
@@ -148,14 +155,30 @@ module.exports = {
         const { body } = await client.search({
             index: 'inmuebles',
             body: {
-              query: {
-                query_string:{
-                    default_field: "propietario",
-                    query: expanded
+                query: {
+                    bool: {
+                        should: [
+                            {
+                                match: {
+                                    barrio: {
+                                        query: keyword,
+                                        fuzziness: "AUTO"
+                                    }
+                                }
+                            },
+                            {
+                                match: {
+                                    ciudad: {
+                                        query: keyword,
+                                        fuzziness: "AUTO"
+                                    }
+                                }
+                            }
+                        ]
+                    }
                 }
-              }
             }
-        })
+        });
 
         // console.log(body.hits.hits)
         return res.status(200).json({
