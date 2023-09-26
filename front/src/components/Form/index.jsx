@@ -21,8 +21,8 @@ export const SearchForm = () => {
     const handleSubmit = async (value) => {
         console.log(value)
         try {
-            const response = await axios.get("http://localhost:3000/inmuebles/buscar?keyword=monserrat");
-            console.log('Respuesta de Elasticsearch:', response.data);
+            const response = await axios.get(`http://localhost:3000/inmuebles/buscar?keyword=${value.ubicacion}`);
+           console.log('Respuesta de Elasticsearch:', response.data);
           } catch (error) {
             console.error(error);
           }
