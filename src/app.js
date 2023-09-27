@@ -6,12 +6,19 @@ const inmueblesRoutes = require('./routes/inmueblesRoutes');
 const session = require('express-session');
 const { passport } = require('./controllers/authController');
 const authRoutes = require('./routes/authRoutes');
+const cors = require('cors');
 
+const corsOptions = {
+  origin: 'http://127.0.0.1:5173',
+  // Puedes configurar otros encabezados CORS aquí si es necesario
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();

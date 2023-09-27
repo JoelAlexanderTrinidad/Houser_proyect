@@ -147,8 +147,9 @@ module.exports = {
 
     },
     buscarInmueble: async (req, res) => {
-/*       const {keyword} = req.query;
-        const expanded =  keyword + "~2"
+        const {keyword} = req.query;
+        console.log(">>>", keyword)
+        // const expanded =  keyword + "~2"
 
         await client.indices.refresh({ index: 'inmuebles' })
 
@@ -165,14 +166,6 @@ module.exports = {
                                         fuzziness: "AUTO"
                                     }
                                 }
-                            },
-                            {
-                                match: {
-                                    ciudad: {
-                                        query: keyword,
-                                        fuzziness: "AUTO"
-                                    }
-                                }
                             }
                         ]
                     }
@@ -180,31 +173,31 @@ module.exports = {
             }
         });
 
-        // console.log(body.hits.hits)
+        console.log(body.hits.hits)
          return res.status(200).json({
             resultados: body.hits.hits.length,
             data: body.hits.hits
-        })*/
-
-        const {keyword} = req.query;
-
-        await client.indices.refresh({ index: 'inmuebles' })
-
-        const { body } = await client.search({
-            index: 'inmuebles',
-            body: {
-              query: {
-                match: { propietario: keyword }
-              }
-            }
-          })
-
-        console.log(body.hits.hits)
-
-        return res.status(200).json({
-            resultados: body.hits.hits.length,
-            data: body.hits.hits
         })
+
+        // const {keyword} = req.query;
+
+        // await client.indices.refresh({ index: 'inmuebles' })
+
+        // const { body } = await client.search({
+        //     index: 'inmuebles',
+        //     body: {
+        //       query: {
+        //         match: { propietario: keyword }
+        //       }
+        //     }
+        //   })
+
+        // console.log(body.hits.hits)
+
+        // return res.status(200).json({
+        //     resultados: body.hits.hits.length,
+        //     data: body.hits.hits
+        // })
     },
     reservar: async (req, res) => {
         const idInmueble = req.params.id;
