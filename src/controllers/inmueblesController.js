@@ -178,26 +178,7 @@ module.exports = {
             resultados: body.hits.hits.length,
             data: body.hits.hits
         })
-
-        // const {keyword} = req.query;
-
-        // await client.indices.refresh({ index: 'inmuebles' })
-
-        // const { body } = await client.search({
-        //     index: 'inmuebles',
-        //     body: {
-        //       query: {
-        //         match: { propietario: keyword }
-        //       }
-        //     }
-        //   })
-
-        // console.log(body.hits.hits)
-
-        // return res.status(200).json({
-        //     resultados: body.hits.hits.length,
-        //     data: body.hits.hits
-        // })
+    
     },
     reservar: async (req, res) => {
         const idInmueble = req.params.id;
