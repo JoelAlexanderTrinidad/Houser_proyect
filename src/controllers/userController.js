@@ -8,7 +8,8 @@ module.exports = {
       const nuevoUsuario = await modelos.Usuarios.create({
         name,
         password,
-        email
+        email,
+        rolId: "cliente"
       })
 
       if (nuevoUsuario) {
