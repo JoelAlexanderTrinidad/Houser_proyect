@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      Inmuebles.belongsTo(models.Images,{
+        as:'images',
+        foreignKey: "id_image",
+        onDelete: 'cascade'
+      })
       // define association here
     }
   }
