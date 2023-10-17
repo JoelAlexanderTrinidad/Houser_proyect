@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Formik } from "formik";
 import * as Yup from 'yup';
-import axios from 'axios';
+// import axios from 'axios';
 
 export const Vender = () => {
 
@@ -20,24 +20,31 @@ export const Vender = () => {
         superficie: "",
         precio: "",
         propietario: "",
+        imagenes: ""
     }
     return(
         <Formik
             initialValues={initial_values}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-                axios.post('http://localhost:3000/inmuebles/', values)
-                    .then(response => {
-                        console.log(response);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
+                console.log(values)
+                // axios.post('http://localhost:3000/inmuebles/', values)
+                //     .then(response => {
+                //         console.log(response);
+                //     })
+                //     .catch(error => {
+                //         console.error(error);
+                //     });
             }}
         >
             {
                 (formik) => (
-                    <form onSubmit={formik.handleSubmit} className="flex flex-col gap-3 my-10 w-10/12 mx-auto">
+                    <form 
+                        onSubmit={formik.handleSubmit}
+                        method="POST"
+                        className="flex flex-col gap-3 my-10 w-10/12 mx-auto"
+                        encType="multipart/form-data"
+                    >
                         <div>
                             <label htmlFor="tipo" className="ms-1">Tipo</label>
                             <Field
@@ -126,6 +133,26 @@ export const Vender = () => {
                                 name='propietario'
                                 component="div"
                                 className='text-red-500 ms-1'
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="imagenes" className="ms-1">Imágenes</label>
+                            <input
+                                id="imagenes"
+                                type="file"
+                                name="imagenes"
+                                method="POST"
+                                accept='image/*'
+                                onChange={(event) => {
+                                    formik.setFieldValue("imagenes", event.currentTarget.files[0]);
+                                }}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-4/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                multiple
+                            />
+                            <ErrorMessage
+                                name="imagenes"
+                                component="div"
+                                className="text-red-500 ms-1"
                             />
                         </div>
                         <button type="submit" className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full pe-10"><i className="fa-solid fa-magnifying-glass pe-4"></i>Crear inmueble</button>

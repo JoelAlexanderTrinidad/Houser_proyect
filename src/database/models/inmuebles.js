@@ -10,10 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Inmuebles.belongsTo(models.Images,{
-        as:'images',
-        foreignKey: "id_image",
-        onDelete: 'cascade'
+      Inmuebles.hasMany(models.Images, {
+        foreignKey: 'id_inmueble',
+        as: 'imagenes',
       })
       // define association here
     }

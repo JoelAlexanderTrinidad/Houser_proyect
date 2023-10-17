@@ -10,6 +10,8 @@ const getLocation = require('../database/serviciosStreetMap/getLocation');
 module.exports = {
     crearInmueble: async (req, res) => {
 
+        
+
         try {
             const {tipo, ubicacion,ambientes,superficie,precio,propietario} = req.body;
 
@@ -26,7 +28,20 @@ module.exports = {
                 disponible: true
             })
 
-            const idImueble = nuevoInmueble.id 
+            const idImueble = nuevoInmueble.id
+
+            if(req.files.length > 0){
+                const imagenes = req.files.map(imagen => {
+                    let image = {
+                        id_inmueble: idImueble,
+                        file: imagen.filename
+                    }
+                    console.log(image)
+                    return image;
+                });
+                await modelos.Images.bulkCreate(imagenes,{validate :true})
+                console.log("#####",imagenes)
+            }
             
             if(nuevoInmueble){
                 const inmuebleElastic = {

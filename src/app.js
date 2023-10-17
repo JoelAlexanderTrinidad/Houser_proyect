@@ -8,13 +8,14 @@ const { passport } = require('./controllers/authController');
 const authRoutes = require('./routes/authRoutes');
 const cors = require('cors');
 
-const corsOptions = {
-  origin: '*',
-  methods: 'GET, POST, PUT, DELETE',
-  allowedHeaders: 'Content-Type, Authorization',
-};
+// const corsOptions = {
+//   origin: '*',
+//   methods: 'GET, POST, PUT, DELETE',
+//   allowedHeaders: 'Content-Type, Authorization',
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 

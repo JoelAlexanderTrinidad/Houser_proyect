@@ -9,6 +9,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      id_inmueble: {
+        type: Sequelize.INTEGER,
+        references : {
+          model : {
+            tableName : 'Inmuebles'
+          },
+          key : 'id'
+        }
+      },
       file: {
         type: Sequelize.STRING
       },

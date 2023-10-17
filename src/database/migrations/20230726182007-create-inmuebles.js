@@ -30,15 +30,6 @@ module.exports = {
       disponible: {
         type: Sequelize.BOOLEAN
       },
-      id_image: {
-        type: Sequelize.INTEGER,
-        references : {
-          model : {
-            tableName : 'images'
-          },
-          key : 'id'
-        }
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

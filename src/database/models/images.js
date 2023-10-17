@@ -10,10 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      
+     
     }
   }
   Images.init({
+    id_imagen: DataTypes.INTEGER,
     file: DataTypes.STRING
   }, {
     sequelize,
