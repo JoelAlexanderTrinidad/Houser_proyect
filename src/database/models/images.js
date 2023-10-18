@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Images.init({
-    id_imagen: DataTypes.INTEGER,
+    id_inmueble: DataTypes.INTEGER,
     file: DataTypes.STRING
   }, {
     sequelize,

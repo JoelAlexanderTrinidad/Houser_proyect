@@ -10,8 +10,6 @@ const getLocation = require('../database/serviciosStreetMap/getLocation');
 module.exports = {
     crearInmueble: async (req, res) => {
 
-        
-
         try {
             const {tipo, ubicacion,ambientes,superficie,precio,propietario} = req.body;
 
@@ -30,7 +28,7 @@ module.exports = {
 
             const idImueble = nuevoInmueble.id
 
-            if(req.files.length > 0){
+            if(req.files && req.files.length > 0){
                 const imagenes = req.files.map(imagen => {
                     let image = {
                         id_inmueble: idImueble,
@@ -107,9 +105,7 @@ module.exports = {
                     }
                 });
                 
-
                 await actualizarInmuebleElastic(idInmueble, req.body);
-
 
                 return res.status(200).json({
                     status: "OK",
@@ -157,16 +153,12 @@ module.exports = {
             console.log(error);
         }
 
-        
-      
-
     },
     buscarInmueble: async (req, res) => {
-        const {keyword} = req.query;
-        console.log(">>>", keyword)
-        // const expanded =  keyword + "~2"
 
-        await client.indices.refresh({ index: 'inmuebles' })
+        const {keyword} = req.query;
+        // const expanded =  keyword + "~2"
+        // const inmuebles = await client.indices.refresh({ index: 'inmuebles' })
 
         const { body } = await client.search({
             index: 'inmuebles',
@@ -188,10 +180,38 @@ module.exports = {
             }
         });
 
-        console.log(body.hits.hits)
+        let inmuebles = body.hits.hits.map(inmueble => inmueble._source)
+
+        if(body.hits.hits.length > 0){
+            const ids = body.hits.hits.map(inmueble => inmueble._source.id)
+            const inmueblesEncontrados = await modelos.Inmuebles.findAll({
+                where: {
+                  id: ids 
+                },
+                include: {
+                    model: modelos.Images,
+                    as: 'imagenes'
+                  }
+              });
+
+              inmuebles = inmueblesEncontrados.map(inmueble => {
+                return {
+                    ...inmueble.dataValues
+                }
+              })
+              
+            //   imagenes = inmueblesEncontrados.flatMap(inmueble => 
+            //     inmueble.imagenes.map(imagen => imagen.dataValues.file)
+            //   );
+            //   console.log(imagenes)
+            //   console.log("inmueblesEncontrados: ",  inmueblesEncontrados[0].dataValues.imagenes[0].dataValues.file)
+        }
+
+        // console.log(imagenes)
+
          return res.status(200).json({
-            resultados: body.hits.hits.length,
-            data: body.hits.hits
+            resultados: inmuebles.length,
+            data: inmuebles,
         })
     
     },
