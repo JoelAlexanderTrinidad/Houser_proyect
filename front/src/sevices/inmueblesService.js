@@ -9,7 +9,7 @@ const searchQuery = {
         {
           match: {
             barrio: {
-              query: "monserrat",
+              query: "balvanera",
               fuzziness: "AUTO"
             }
           }

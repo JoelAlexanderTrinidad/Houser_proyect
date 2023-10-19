@@ -1,20 +1,30 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import PropTypes from 'prop-types';
-import { getInmuebles } from "../sevices/inmueblesService";
+// import { getInmuebles } from "../sevices/inmueblesService";
+import axios from "axios";
 
 export const InmuebleContext = createContext(null);
 
 export const InmueblesProvider = ({children}) => {
 
-  // const [inmuebles, setInmuebles] = useState([]);
+  const [inmuebles, setInmuebles] = useState([]);
 
 
-  const inmuebles = getInmuebles();
+  const traerInmuebles = async (value) => {
+    const keyword = value.ubicacion;
+    try {
+        const response = await axios.get(`http://localhost:3000/inmuebles/buscar?keyword=${keyword}`);
+        const data = response.data.data
+        setInmuebles(data)
+      //  console.log('Respuesta de Elasticsearch:', response.data);
+      } catch (error) {
+        console.error(error);
+      }
+  }
 
-  console.log(inmuebles)
-  
   const contextValue = {
-    inmuebles
+    inmuebles,
+    traerInmuebles
   }
   return (
     <InmuebleContext.Provider value={contextValue}>

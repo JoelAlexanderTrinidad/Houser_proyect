@@ -1,36 +1,26 @@
 import { ErrorMessage, Field, Formik } from "formik"
-import axios from "axios";
+// import axios from "axios";
 // import { useState } from "react";
 import * as Yup from 'yup'
+import useInmueble from "../../hooks/useInmueble";
 // import useInmueble from "../../hooks/useInmueble"
 
 export const SearchForm = () => {
 
+    const {traerInmuebles} = useInmueble();
+
     const validationSchema = Yup.object({
         ubicacion: Yup.string().required("Ingrese una ubicación"),
       })
-    
-
-    // const {inmuebles} = useInmueble();
-    // const [loading, setLoading] = useState(false)
 
     const initial_values = {
         ubicacion: "",
     }
 
     const handleSubmit = async (value) => {
-        const keyword = value.ubicacion;
-        console.log(keyword)
-        try {
-            const response = await axios.get(`http://localhost:3000/inmuebles/buscar?keyword=${keyword}`);
-            
-           console.log('Respuesta de Elasticsearch:', response.data);
-          } catch (error) {
-            console.error(error);
-          }
+        traerInmuebles(value);
     };
     
-
   return (
     <Formik
         initialValues={initial_values}
