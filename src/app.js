@@ -3,9 +3,11 @@ const app = express();
 const port = 3000;
 const userRoutes = require('./routes/userRoutes');
 const inmueblesRoutes = require('./routes/inmueblesRoutes');
+const authRoutes = require('./routes/authRoutes');
+const imagenesRoutes = require('./routes/imagenesRoutes');
+
 const session = require('express-session');
 const { passport } = require('./controllers/authController');
-const authRoutes = require('./routes/authRoutes');
 const cors = require('cors');
 
 // const corsOptions = {
@@ -36,6 +38,7 @@ app.use(session({
 app.use('/users', userRoutes);
 app.use('/inmuebles', inmueblesRoutes);
 app.use('/auth', authRoutes);
+app.use('/imagenes', imagenesRoutes);
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types';
-// import Carousel from 'nuka-carousel'
-import img from '../../../../src/database/images/1.jpg'
+import Carousel from 'nuka-carousel'
 
 export const Card = ({inmueble}) => {
 
+    // console.log(">>>>>", inmueble.imagenes[0].file)
+
   return (
     <div className="max-w-sm my-10 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        {/* <Carousel>
+        <Carousel>
             {
                 inmueble.imagenes.map((image, index) => {
-                    <img key={index} className="rounded-t-lg" src={`../../../../src/database/images${image.file}`} alt="" />
+                    return <img key={index} className="rounded-t-lg" src={`http://localhost:3000/imagenes/${image.file}`} alt="" />
                 })
             }
-        </Carousel> */}
-        <img className="rounded-t-lg" src={img} alt="" />
+        </Carousel>
+        {/* <img className="rounded-t-lg" src={`http://localhost:3000/imagenes/${inmueble.imagenes[0].file}`} alt="" /> */}
         <div className="p-5">
             <a href="#">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Ubicación: {inmueble.ubicacion}</h5>
