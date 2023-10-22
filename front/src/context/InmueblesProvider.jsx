@@ -8,6 +8,8 @@ export const InmuebleContext = createContext(null);
 export const InmueblesProvider = ({children}) => {
 
   const [inmuebles, setInmuebles] = useState([]);
+  const [inmuebleID, setInmuebleID] = useState([]);
+  const [reserva, setReserva] = useState(false);
 
 
   const traerInmuebles = async (value) => {
@@ -22,9 +24,34 @@ export const InmueblesProvider = ({children}) => {
       }
   }
 
+  const traerInmuebleID = async (inmuebleID) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/inmuebles/${inmuebleID}`);
+      const data = response.data.data
+      setInmuebleID(data)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handleReserva = async (inmuebleID) => {
+    try {
+      const response = await axios.patch(`http://localhost:3000/inmuebles/reservar/${inmuebleID}`);
+      console.log("RESPONSE: ", response)
+      setReserva(true)
+      // setReserva(response.disponible)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const contextValue = {
     inmuebles,
-    traerInmuebles
+    traerInmuebles,
+    traerInmuebleID,
+    inmuebleID,
+    handleReserva,
+    reserva
   }
   return (
     <InmuebleContext.Provider value={contextValue}>

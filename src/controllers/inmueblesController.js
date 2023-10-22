@@ -215,6 +215,32 @@ module.exports = {
         })
     
     },
+    detalleInmueble: async (req, res) => {
+
+        const inmuebleID = +req.params.id;
+
+        try {
+            const inmueble = await modelos.Inmuebles.findByPk(inmuebleID, {
+                include: {
+                    model: modelos.Images,
+                    as: 'imagenes'
+                    }
+            });
+
+            console.log(inmueble.dataValues)
+
+            return res.status(200).json({
+                data: inmueble.dataValues,
+            })
+
+        } catch (error) {
+            console.log(error);
+        }
+       
+
+
+
+    },
     reservar: async (req, res) => {
         const idInmueble = req.params.id;
         const inmueble = await modelos.Inmuebles.findByPk(idInmueble);
@@ -225,13 +251,12 @@ module.exports = {
             }
 
             if(inmueble.disponible == true){
-                return res.status(200).json({ message: 'Ya está reservado' });
+                inmueble.disponible = false;
+                await inmueble.save();
+                return res.status(200).json({ message: 'Propiedad reservada exitosamente' });
             }
-    
-            inmueble.disponible = false;
-            await inmueble.save();
             
-            return res.status(200).json({ message: 'Propiedad reservada exitosamente' });
+            return res.status(200).json({ message: 'Ya está reservado' }); 
         } catch (error) {
             console.log(error);
             res.status(500).json({ message: 'Error interno del servidor' });
