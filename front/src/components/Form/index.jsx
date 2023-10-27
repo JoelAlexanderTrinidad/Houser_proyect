@@ -29,7 +29,7 @@ export const SearchForm = () => {
     >
         {
             (formik) => (
-                <form onSubmit={formik.handleSubmit} className="flex flex-col gap-3">
+                <form onSubmit={formik.handleSubmit} className="flex flex-col gap-3 lg:w-5/12">
                     <div>
                         <label htmlFor="ubicacion" className="ms-1">Ingrese una ubicación</label>
                        <Field
@@ -37,7 +37,7 @@ export const SearchForm = () => {
                         type="text"
                         name="ubicacion"
                         placeholder="Ej. congreso, balvanera, saavedra, etc"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-4/5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
                        />
 
                         <ErrorMessage

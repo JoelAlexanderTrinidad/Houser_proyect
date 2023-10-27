@@ -66,6 +66,13 @@ export const Login = () => {
         >
           Sign In
         </button>
+        <button
+          className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full pe-10 mt-5"
+          type="button"
+          data-ripple-light="true"
+        >
+          Ingresá con Facebook
+        </button>
         <p className="mt-6 flex justify-center font-sans text-sm font-light leading-normal text-inherit antialiased">
           Dont have an account?
           <a

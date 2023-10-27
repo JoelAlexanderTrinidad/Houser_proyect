@@ -8,7 +8,7 @@ export const Layouts = ({children}) => {
     <BrowserRouter>
         <Header />
             {children}
-        <Footer />
+        {/* <Footer /> */}
     </BrowserRouter>
   )
 }
