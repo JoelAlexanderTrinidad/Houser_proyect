@@ -1,9 +1,6 @@
-import { ErrorMessage, Field, Formik } from "formik"
-// import axios from "axios";
-// import { useState } from "react";
-import * as Yup from 'yup'
+import { ErrorMessage, Field, Formik } from "formik";
+import * as Yup from 'yup';
 import useInmueble from "../../hooks/useInmueble";
-// import useInmueble from "../../hooks/useInmueble"
 
 export const SearchForm = () => {
 

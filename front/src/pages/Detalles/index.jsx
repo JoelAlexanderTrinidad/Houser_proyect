@@ -1,10 +1,13 @@
 import { useParams } from 'react-router-dom';
 import useInmueble from '../../hooks/useInmueble';
 import { useEffect } from 'react';
-import Carousel from 'nuka-carousel'
+import Carousel from 'nuka-carousel';
+import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/dark.css';
 
 export const Detalles = () => {
 
+    const mostrarNotificacion = () => toast('Tenés que estar logeado para realizar esta acción!',  { theme: 'dark', duration: 2000, position: 'center' });
     const { id } = useParams();
     const {traerInmuebleID, inmuebleID, handleReserva,reserva} = useInmueble();
 
@@ -14,10 +17,18 @@ export const Detalles = () => {
 
 
     const reservarHandler = () => {
-      handleReserva(id);
+      if(!(localStorage.getItem("jwtoken") == null)){
+        handleReserva(id);
+      }else{
+        mostrarNotificacion();
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+       
+      }
     };
-
-   
+    
+    
   return (
     
     <div className="my-10 w-10/12 mx-auto">
@@ -56,12 +67,13 @@ export const Detalles = () => {
                 </p>
 
                 <button 
-                  onClick={reservarHandler} 
+                  onClick={ reservarHandler } 
                   disabled={!inmuebleID.disponible} 
                   className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${!inmuebleID.disponible ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   <span style={{ textDecoration: inmuebleID.disponible ? 'none' : 'line-through' }}>RESERVAR</span>
                 </button>
+            
             </div>
         </div>
   )

@@ -3,7 +3,6 @@ const router = express.Router();
 const inmueblesController = require('../controllers/inmueblesController');
 const { subirImg } = require('../middlewares/subirImagenes');
 
-
 /* inmuebles */
 router
     .post('/', subirImg.array('file'),inmueblesController.crearInmueble)

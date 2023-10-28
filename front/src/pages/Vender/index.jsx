@@ -1,8 +1,12 @@
+import axios from "axios";
 import { ErrorMessage, Field, Formik } from "formik";
 import * as Yup from 'yup';
-// import axios from 'axios';
+import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/dark.css';
 
 export const Vender = () => {
+
+    const mostrarNotificacion = () => toast('¡Inmueble creado con éxito!',  { theme: 'dark', duration: 2000, position: 'center' });
 
     const validationSchema = Yup.object({
         tipo: Yup.string().required("Debe ingresar un tipo de inmueble"),
@@ -28,13 +32,17 @@ export const Vender = () => {
             validationSchema={validationSchema}
             onSubmit={(values) => {
                 console.log(values)
-                // axios.post('http://localhost:3000/inmuebles/', values)
-                //     .then(response => {
-                //         console.log(response);
-                //     })
-                //     .catch(error => {
-                //         console.error(error);
-                //     });
+                axios.post('http://localhost:3000/inmuebles/', values)
+                    .then(response => {
+                        mostrarNotificacion();
+                        setTimeout(() => {
+                          window.location.href = '/';
+                        }, 2000);
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             }}
         >
             {
