@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import './header.css'
 
 export const Header = () => {
 
@@ -18,7 +19,7 @@ export const Header = () => {
 
   return (
     
-    <div className="flex items-center justify-between border-b-2 py-4 px-10">
+    <div className="flex items-center justify-between border-b-2 py-4 px-10 bg_color">
       <div> <Link to={"/"}>HOUSER</Link></div>
       <div className="flex gap-4">
         {

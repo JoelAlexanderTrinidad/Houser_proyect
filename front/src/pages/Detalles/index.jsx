@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
 import useInmueble from '../../hooks/useInmueble';
 import { useEffect } from 'react';
-import Carousel from 'nuka-carousel';
 import toast from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 export const Detalles = () => {
 
@@ -28,22 +29,23 @@ export const Detalles = () => {
       }
     };
     
+    let imagenes = [];
     
+    if (inmuebleID && inmuebleID.imagenes) {
+        imagenes = inmuebleID.imagenes.map((image) => {
+        return {
+          original: `http://localhost:3000/imagenes/${image.file}`,
+          thumbnail: `http://localhost:3000/imagenes/${image.file}`,
+        };
+      });
+    }
+
   return (
     
-    <div className="my-10 w-10/12 mx-auto">
-            {inmuebleID.imagenes && (
-                <Carousel>
-                    {inmuebleID.imagenes.map((image, index) => (
-                        <img
-                            key={index}
-                            className="rounded-t-lg"
-                            src={`http://localhost:3000/imagenes/${image.file}`}
-                            alt=""
-                        />
-                    ))}
-                </Carousel>
-            )}
+    <div className="my-10 w-10/12 mx-auto ">
+           
+            <ImageGallery items={imagenes} />
+
             <div className="flex flex-col justify-between p-4 leading-normal">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     {inmuebleID.tipo}

@@ -1,3 +1,4 @@
+import { Footer } from "../Footer"
 import { SearchForm } from "../Form"
 import { InmueblesList } from "../InmueblesList"
 
@@ -7,6 +8,7 @@ export const Home = () => {
         <h3 className="text-center text-2xl my-6 mt-10">Buscá propiedades en alquiler</h3>
         <SearchForm />
         <InmueblesList />
+        <Footer />
       </div>
     )
   }

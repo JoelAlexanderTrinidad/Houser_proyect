@@ -50,7 +50,7 @@ export const Vender = () => {
                     <form 
                         onSubmit={formik.handleSubmit}
                         method="POST"
-                        className="flex flex-col gap-3 my-10 w-10/12 mx-auto"
+                        className="flex flex-col gap-3 my-10 w-10/12 mx-auto md:w-5/12"
                         encType="multipart/form-data"
                     >
                         <div>
@@ -163,7 +163,7 @@ export const Vender = () => {
                                 className="text-red-500 ms-1"
                             />
                         </div>
-                        <button type="submit" className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full pe-10"><i className="fa-solid fa-magnifying-glass pe-4"></i>Crear inmueble</button>
+                        <button type="submit" className="md:w-60 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full pe-10"><i className="fa-solid fa-magnifying-glass pe-4"></i>Crear inmueble</button>
 
                     </form>
                 )

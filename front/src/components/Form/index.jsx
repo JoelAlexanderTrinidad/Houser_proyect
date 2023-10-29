@@ -28,7 +28,7 @@ export const SearchForm = () => {
             (formik) => (
                 <form onSubmit={formik.handleSubmit} className="flex flex-col gap-3 lg:w-5/12">
                     <div>
-                        <label htmlFor="ubicacion" className="ms-1">Ingrese una ubicación</label>
+                        <label htmlFor="ubicacion" className="ms-1">Ingrese un barrio de la ciudad de Buenos Aires</label>
                        <Field
                         id="ubicacion"
                         type="text"
