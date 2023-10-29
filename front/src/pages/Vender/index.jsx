@@ -3,6 +3,7 @@ import { ErrorMessage, Field, Formik } from "formik";
 import * as Yup from 'yup';
 import toast from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
+import { Footer } from "../../components/Footer";
 
 export const Vender = () => {
 
@@ -27,6 +28,8 @@ export const Vender = () => {
         imagenes: ""
     }
     return(
+        <>
+        
         <Formik
             initialValues={initial_values}
             validationSchema={validationSchema}
@@ -169,6 +172,8 @@ export const Vender = () => {
                 )
             }
         </Formik>
+        <Footer />
+        </>
     )
 }
 
