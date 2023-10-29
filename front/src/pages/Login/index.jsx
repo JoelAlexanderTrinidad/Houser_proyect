@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Formik } from "formik";
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom'
 import useUsuario from "../../hooks/useUsuario";
+import { Footer } from "../../components/Footer";
 
 export const Login = () => {
 
@@ -27,6 +28,8 @@ export const Login = () => {
   }
 
   return (
+    <>
+    
     <Formik
       initialValues={initial_values}
       validationSchema={validationSchema}
@@ -129,5 +132,7 @@ export const Login = () => {
         )
       }
     </Formik>
+    <Footer />
+    </>
   );
 };

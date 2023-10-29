@@ -5,6 +5,7 @@ import toast from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
+import { Footer } from '../../components/Footer';
 
 export const Detalles = () => {
 
@@ -41,6 +42,7 @@ export const Detalles = () => {
     }
 
   return (
+    <>
     
     <div className="my-10 w-10/12 mx-auto ">
            
@@ -78,5 +80,7 @@ export const Detalles = () => {
             
             </div>
         </div>
+        <Footer />
+    </>
   )
 }

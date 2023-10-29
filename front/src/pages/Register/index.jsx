@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ErrorMessage, Field, Formik } from "formik";
 import * as Yup from 'yup';
+import { Footer } from "../../components/Footer";
 
 export const Register = () => {
 
@@ -38,6 +39,7 @@ export const Register = () => {
 
 
   return (
+    <>
     <Formik
         initialValues={initial_values}
         validationSchema={validationSchema}
@@ -147,5 +149,7 @@ export const Register = () => {
         )
 }
     </Formik>
+    <Footer />
+    </>
   )
 }
