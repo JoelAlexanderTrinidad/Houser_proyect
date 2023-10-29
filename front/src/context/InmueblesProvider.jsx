@@ -10,6 +10,15 @@ export const InmueblesProvider = ({children}) => {
   const [inmuebleID, setInmuebleID] = useState([]);
   const [reserva, setReserva] = useState(false);
 
+  const traerTodosLosInmuebles = async () => {
+    try {
+      const response = await axios.post(`http://localhost:9200/inmuebles/_search/`);
+      console.log(response)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const traerInmuebles = async (value) => {
     const keyword = value.ubicacion;
     try {
@@ -52,7 +61,8 @@ export const InmueblesProvider = ({children}) => {
     traerInmuebleID,
     inmuebleID,
     handleReserva,
-    reserva
+    reserva,
+    traerTodosLosInmuebles
   }
   return (
     <InmuebleContext.Provider value={contextValue}>

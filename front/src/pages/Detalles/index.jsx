@@ -73,7 +73,7 @@ export const Detalles = () => {
                 <button 
                   onClick={ reservarHandler } 
                   disabled={!inmuebleID.disponible} 
-                  className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${!inmuebleID.disponible ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`bg-blue-500 md:w-2/6 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${!inmuebleID.disponible ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   <span style={{ textDecoration: inmuebleID.disponible ? 'none' : 'line-through' }}>RESERVAR</span>
                 </button>
